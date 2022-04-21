@@ -15,7 +15,7 @@
 * 
 * ```hcl
 *    module "lambda_foo" {
-*      source             = "app.terraform.io/acme/lambda/aws"
+*      source             = "app.terraform.io/foo/lambda/aws"
 *      label              = "${module.labels.id}-foo"
 *      tags               = merge(module.labels.tags, { "Name" : "${module.labels.id}-foo" })
 *      has_layers         = false
