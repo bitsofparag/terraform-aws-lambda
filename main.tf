@@ -40,7 +40,7 @@
 *   ```
 *
 * 
-**/
+*/
 
 # If iam_role_arn is not provided by user, create one here.
 resource "aws_iam_role" "lambda" {
