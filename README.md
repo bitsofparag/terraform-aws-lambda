@@ -9,13 +9,13 @@ the user need not worry about them.
 
 2. Add a proper labels module.
 
-3. Invoke the module, like so:
+3. Invoke the module, assuming networking and packages are ready, something like so:
 
 ```hcl
    module "lambda_foo" {
      source             = "app.terraform.io/acme/lambda/aws"
-     label              = "${module.labels.id}-acme"
-     tags               = merge(module.labels.tags, { "Name" : "${module.labels.id}-acme" })
+     label              = "${module.labels.id}-foo"
+     tags               = merge(module.labels.tags, { "Name" : "${module.labels.id}-foo" })
      has_layers         = false
      runtime            = "python3.10"
      filename           = "path/to/dist/payload.zip"
