@@ -2,8 +2,6 @@
 
 ## Usage
 
-### Without user-provided IAM role (i.e computed role)
-
 Here, the Lambda module creates the IAM roles and policies by default, so that
 the user need not worry about them.
 
@@ -14,10 +12,10 @@ the user need not worry about them.
 3. ```hcl
    module "lambda_foo" {
      source             = "app.terraform.io/acme/lambda/aws"
-     label              = "${module.labels.id}-acme-lambda"
-     tags               = merge(module.labels.tags, { "Name" : "${module.labels.id}-acme-lambda" })
+     label              = "${module.labels.id}-acme"
+     tags               = merge(module.labels.tags, { "Name" : "${module.labels.id}-acme" })
      has_layers         = false
-     runtime            = "python3.8"
+     runtime            = "python3.10"
      filename           = "path/to/dist/payload.zip"
      function_name      = "my_module"
      handler            = "handler.handle"
@@ -33,55 +31,14 @@ the user need not worry about them.
      env_vars = {
        variables = {
          "ENVIRONMENT" : "prod",
-         "PACKAGE_VERSION" : var.package_version
+         "VERSION" : var.package_version
        }
      }
   }
 ```
 
---------------
-
-You can use `null_resource` with `null_data_source` to get the package zip.
-Another approach would be to download the package from an external registry, like so,
-
-```hcl
-# Cognito Custom Message
-data "external" "get_cognito_custom_message" {
-  program = ["bash", "${path.module}/download-package.sh"]
-
-  query = {
-    # arbitrary map from strings to strings, passed
-    # to this program (bash script) as the data query.
-    name         = "cognito_custom_message"
-    type         = "generic"
-    env          = "testing"
-    version      = var.cognito_custom_message_version
-    access_token = var.project_access_token
-    project_id   = var.backend_project_id
-  }
-}
-
-module "lambda_cognito_custom_message" {
-  source             = "./modules/lambda"
-  label              = module.labels.id
-  tags               = module.labels.tags
-  has_layers         = false
-  runtime            = "python3.8"
-  filepath           = "${path.module}/dist/cognito_custom_message.zip"
-  function_name      = "${module.labels.id}-cognito-custom-message"
-  handler            = "handler.handle"
-  timeout            = 30
-}
-```
-
 ---------------
-
-Every AWS Lambda function needs permission to interact with other AWS infrastructure resources
-within your account.
-By default, one IAM Role is shared by all of the Lambda functions in your service.
-Also by default, your Lambda functions have permission to create and write to CloudWatch logs.
-When VPC configuration is provided the default AWS AWSLambdaVPCAccessExecutionRole will be
-associated in order to communicate with your VPC resources.
+**/
 
 ## Requirements
 
