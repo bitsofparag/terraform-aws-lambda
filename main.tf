@@ -36,9 +36,10 @@
 *          "VERSION" : var.package_version
 *        }
 *      }
-*   }```
+*   }
+*   ```
 *
-* ---------------
+* 
 **/
 
 # If iam_role_arn is not provided by user, create one here.
