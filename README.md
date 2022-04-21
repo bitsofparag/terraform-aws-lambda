@@ -9,7 +9,9 @@ the user need not worry about them.
 
 2. Add a proper labels module.
 
-3. ```hcl
+3. Invoke the module, like so:
+
+```hcl
    module "lambda_foo" {
      source             = "app.terraform.io/acme/lambda/aws"
      label              = "${module.labels.id}-acme"
@@ -35,7 +37,7 @@ the user need not worry about them.
        }
      }
   }
-   ```
+```
 
 ## Requirements
 

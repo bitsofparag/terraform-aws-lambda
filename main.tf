@@ -11,7 +11,9 @@
 *
 * 2. Add a proper labels module.
 *
-* 3. ```hcl
+* 3. Invoke the module, like so:
+* 
+* ```hcl
 *    module "lambda_foo" {
 *      source             = "app.terraform.io/acme/lambda/aws"
 *      label              = "${module.labels.id}-acme"
@@ -37,9 +39,7 @@
 *        }
 *      }
 *   }
-*    ```
-*
-* 
+* ```
 */
 
 # If iam_role_arn is not provided by user, create one here.
